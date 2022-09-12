@@ -36,10 +36,29 @@ if (
 themeToggleBtn.addEventListener("click", toggleTheme);
 
 function toggleTheme() {
-  document.documentElement.classList.toggle("dark");
-
   iconSetLight.classList.toggle("hidden");
   iconSetDark.classList.toggle("hidden");
+
+  // Set previously by user and stored locally:
+  if (localStorage.getItem("color-theme")) {
+    if (localStorage.getItem("color-theme") === "light") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light");
+    }
+  }
+
+  // If not set by user previously:
+  else {
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
+    }
+  }
 }
 
 // FEATURES TABS FUNCTIONALITY:
